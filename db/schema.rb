@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141204051143) do
+ActiveRecord::Schema.define(version: 20141205005120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "identities", force: true do |t|
+    t.integer  "user_id"
+    t.string   "provider",   default: "", null: false
+    t.string   "uid",        default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",               default: "", null: false
